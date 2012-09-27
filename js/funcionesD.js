@@ -96,11 +96,12 @@ function insertarDisfrutada(){
 		
 		
 		//Comprobamos que no se disfruta más horas de las que se tienen disponibles
-		var nD = localStorage.HorasExtras;
-		alert nD;
-		
-
-
+		var horasDisponibles = localStorage.HorasExtras;
+		var comparaDisfrutadas = CompararHoras(sTiempoDisfrutado,horasDisponibles);
+		if (comparaDisfrutadas == "1"){
+			alert ("No puede disfrutar más tiempo que el disponble (" + horasDisponibles + ")");
+			return false;
+		}
 		//
 		
 		var n = parseInt(localStorage.nDisfrutadas,10) + 1;

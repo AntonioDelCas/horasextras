@@ -93,7 +93,12 @@ function insertarTrabajada(){
 			return false;	
 		}
 		
-		
+		var comparaH = CompararHoras(sHoraFin,sHoraInicio);
+		if (comparaH == "0"){
+			alert ("La hora fin no puede ser mayor que la hora de inicio");
+			return false;
+		}
+
 			
 		var n = parseInt(localStorage.nTrabajadas,10) + 1;
 		
