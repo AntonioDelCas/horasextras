@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#horasextras{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 80px;
+	font-weight: bold;
+	color: #666;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	vertical-align: middle;
+}
+
+#horasextrasPositivo{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 120px;
+	font-weight: bold;
+	color: #06F;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	vertical-align: middle;
+}
+
+#horasextrasNegativo{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 120px;
+	font-weight: bold;
+	color: #F00;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	vertical-align: middle;
+}
+
+.subtitulo{	
+	font-size: 12px;
+}
+

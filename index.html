@@ -1,0 +1,534 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>Horas Extras</title>
+
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css" />
+<link rel="stylesheet" href="css/css.css" />
+<script src="js/jquery-1.7.2.js"></script>
+
+<script src="js/funcionesT.js"></script>
+<script src="js/funcionesD.js"></script>
+
+<script src="js/funciones.js"></script>
+<script src="js/jquery.mobile-1.1.0.min.js"></script>
+
+<script src="js/mobiscroll-1.6.min.js" type="text/javascript"></script>
+<link href="css/mobiscroll-1.6.min.css" rel="stylesheet" type="text/css" />
+
+</head> 
+<body> 
+<!-- Trabajadas -->
+<div data-role="page" data-theme="d" id="inicio">
+	<div data-role="header" data-theme="b">
+		<h1>Horas</h1>
+        <a href="#configuracion" data-role="button" data-theme="c" data-icon="gear" data-iconpos="notext"></a>
+         <a href="#ayuda" data-role="button" data-theme="c" data-icon="info" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content" id="contenedor">	
+		<!-- 00:00 -->
+	</div>
+    <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop" data->Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>             
+			</ul>
+        </div>
+     </div>
+</div>
+
+ 
+<!-- Crear Configuracion -->
+<div data-role="page" data-theme="d" id="configuracion">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Configuración</h1>
+        <a href="#inicio" data-theme="c" data-rel="back" data-icon="back" data-iconpos="notext">Cancelar</a>
+	</div>
+    
+	<div data-role="content" data-theme="d">	
+        <form action="#inicio" method="post" data-ajax="false" onSubmit="return insertarConfiguracion();">
+        
+        <div data-role="collapsible-set">
+          <div data-role="collapsible" data-theme="c">
+              <h2>1 hora jornada laboral</h2>
+              <legend>equivale a</legend>
+              <input type="text" id="laboral" name="laboral" data-theme="f" value="00:00">
+          </div>
+          
+          <div data-role="collapsible" data-theme="c">
+              <h2>1 hora horario nocturno</h2>
+              <legend>equivale a</legend>
+              <input type="text" id="nocturno" name="nocturno" data-theme="f" value="00:00">
+              <br>
+               <legend>Inicio horario nocturno</legend>
+               <input type="text" id="horanocturno" name="horanocturno" data-theme="f">
+          </div>
+              
+          <div data-role="collapsible" data-theme="c">
+              <h2>1 hora jornada festiva</h2>
+              <legend>equivale a</legend>
+              <input type="text" id="festivo" name="festivo" data-theme="f" value="00:00">
+          </div>
+		</div>
+
+         
+        <input type="submit" value="Guardar" data-theme="b"/>
+        <br><br>
+        <a href="#reinicio" data-role="button" data-rel="dialog" data-theme="a">Reiniciar sistema</a>
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>           
+			</ul>
+        </div>
+     </div>
+</div>
+
+
+<!-- Trabajadas -->
+<div data-role="page" data-theme="d" id="trabajadas"> <!--data-fullscreen="true">-->
+	<div data-role="header" data-theme="b"  data-position="fixed">
+    <!--<div data-role="header" data-theme="b" data-position="fixed">-->
+		<h1>Trabajadas</h1>
+        <a href="#nuevaTrabajada" data-role="button" data-theme="c" data-icon="plus">Nueva</a>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-dividertheme="c">
+        <!-- Recorremos los datos almacenados -->
+        <!--<ul data-role="listview" data-dividertheme="c">
+			<li><a href="detalle.html">05/01/2012<br>5:30</a></li>   -->
+		</ul>
+        		
+	</div>
+    <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>                   
+			</ul>
+        </div>
+     </div>
+</div>
+
+ 
+<!-- Crear Nueva Trabajada -->
+<div data-role="page" data-theme="d"  id="nuevaTrabajada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Nueva Trabajada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">	
+        <form method="post" data-ajax="false" action="#inicio" onSubmit="return insertarTrabajada();">
+        <fieldset data-role="fieldcontain">
+        	<legend>Fecha</legend>
+            <input type="text" id="fecha" name="fecha" data-theme="f">
+            <legend>Hora Inicio</legend>
+            <input type="text" id="horainicio" name="horainicio" data-theme="f">
+            <legend>Hora Fin</legend>
+            <input type="text" id="horafin" name="horafin" data-theme="f">
+            <legend>¿Termina en festivo?</legend>
+            <select onChange='devolver_festivo(this.options[this.selectedIndex].value)'name="festivo" id="festivo" data-role="slider">
+    			<option value="No">No</option>
+   				<option value="Si">Si</option>
+			</select> 
+            <input type="hidden" id="esfestivo" name="esfestivo">
+         </fieldset>      
+            <legend>Comentario</legend>
+            <textarea  id="comentario" name="comentario" data-theme="f"></textarea>
+            
+            <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#trabajadas" data-role="button" data-rel="back">Cancelar</a></div>
+				<div class="ui-block-b"><input type="submit" value="Guardar" data-theme="b"/></div>	   
+			</fieldset>
+   
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>                   
+			</ul>
+        </div>
+     </div>
+</div>
+
+<!-- Ver Trabajada -->
+<div data-role="page" data-theme="d"  id="vertrabajada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Trabajada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">
+    	<div id="texto"></div>
+        <form method="post" data-ajax="false">	
+        <fieldset data-role="fieldcontain">
+        	<input type="hidden" id="clave">
+            <input type="hidden" id="tiempoentrada">
+        	<legend for="fecha_l">Fecha</legend>
+            <input type="text" id="fecha_l" name="fecha_l" data-theme="f" readonly>
+            <legend for="horainicio_l">Hora Inicio</legend>
+            <input type="text" id="horainicio_l" name="horainicio_l" data-theme="f" readonly>
+            <legend for="horafin_l">Hora Fin</legend>
+            <input type="text" id="horafin_l" name="horafin_l" data-theme="f" readonly>
+            <legend for="festivo_l">¿Termina en festivo?</legend>
+            <select name="festivo_l" id="festivo_l" data-role="slider" disabled>
+    			<option value="No">No</option>
+   				<option value="Si">Si</option>
+			</select>
+         </fieldset>           
+            <legend for="comentario">Comentario</legend>
+            <textarea  id="comentario" name="comentario" data-theme="f" readonly></textarea>
+            
+             <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#trabajadas" data-role="button" data-theme="b">Volver</a></div>
+           		<div class="ui-block-b"><a href="#editatrabajada" data-role="button">Editar</a></div>
+             </fieldset>
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>                   
+			</ul>
+        </div>
+     </div>
+</div>
+
+<!-- Edita Trabajada -->
+<div data-role="page" data-theme="d"  id="editatrabajada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Trabajada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">
+    	<div id="texto"></div>
+        <form method="post" data-ajax="false" action="#trabajadas" onSubmit="return actualizarTrabajada();">	
+        <fieldset data-role="fieldcontain">
+        	<input type="hidden" id="clave">
+            <input type="hidden" id="tiempoentrada">
+        	<legend for="fecha_e">Fecha</legend>
+            <input type="text" id="fecha_e" name="fecha_e" data-theme="f">
+            <legend for="horainicio_e">Hora Inicio</legend>
+            <input type="text" id="horainicio_e" name="horainicio_e" data-theme="f">
+            <legend for="horafin_e">Hora Fin</legend>
+            <input type="text" id="horafin_e" name="horafin_e" data-theme="f">
+            <legend for="festivo_e">¿Termina en festivo?</legend>
+            <select onChange='devolver_festivo(this.options[this.selectedIndex].value)' name="festivo_e" id="festivo_e" data-role="slider">
+    			<option value="No">No</option>
+   				<option value="Si">Si</option>
+			</select>
+         </fieldset>           
+            <legend for="comentario_e">Comentario</legend>
+            <textarea  id="comentario_e" name="comentario_e" data-theme="f"></textarea>
+            
+            <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#trabajadas" data-role="button">Cancelar</a></div>
+				<div class="ui-block-b"><input type="submit" value="Guardar" data-theme="b"/></div>	 
+			</fieldset>
+		    <br>
+            <a href="#dialogoEliminar" onclick="javascript:enviaridActual(this.clave.value);" data-theme="e" data-rel="dialog"  data-role="button">Eliminar</a>
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>                   
+			</ul>
+        </div>
+     </div>
+</div>
+
+
+
+<!-- Disfrutadas -->
+<div data-role="page" data-theme="d" id="disfrutadas"> <!--data-fullscreen="true">-->
+	<div data-role="header" data-theme="b" data-position="fixed">
+    <!--<div data-role="header" data-theme="b" data-position="fixed">-->
+		<h1>Disfrutadas</h1>
+        <a href="#nuevadisfrutada" data-role="button" data-theme="c" data-icon="plus">Nueva</a>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-dividertheme="c">
+
+		</ul>
+        		
+	</div>
+    <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>                   
+			</ul>
+        </div>
+     </div>
+</div>
+
+ 
+<!-- Crear Nueva Disfrutada -->
+<div data-role="page" data-theme="d"  id="nuevadisfrutada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Nueva Disfrutada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">	
+        <form method="post" data-ajax="false" action="#inicio" onSubmit="return insertarDisfrutada();">
+        <fieldset data-role="fieldcontain">
+        	<legend for="fechaDisfrutado">Fecha</legend>
+            <input type="text" id="fechaDisfrutado" name="fechaDisfrutado" data-theme="f">
+            <legend for="tiempodisfrutado">Tiempo disfrutado</legend>
+            <input type="text" id="tiempodisfrutado" name="tiempodisfrutado" data-theme="f" value="00:00">  
+         </fieldset>      
+            <legend for="comentario_d">Comentario</legend>
+            <textarea  id="comentario_d" name="comentario_d" data-theme="f"></textarea>
+		
+        <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#disfrutadas" data-role="button" data-rel="back">Cancelar</a></div>
+				<div class="ui-block-b"><input type="submit" value="Guardar" data-theme="b"/>  </div>	   
+		</fieldset>
+        
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>             
+			</ul>
+        </div>
+     </div>
+</div>
+
+<!-- Ver Disfrutada -->
+<div data-role="page" data-theme="d"  id="verdisfrutada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Disfrutada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">	
+    <div id="texto"></div>
+        <form method="post" data-ajax="false">	
+        <fieldset data-role="fieldcontain">
+        	<input type="hidden" id="clave">
+            <input type="hidden" id="tiempoentrada">
+        	<legend for="fechaDisfrutado_l">Fecha</legend>
+            <input type="text" id="fechaDisfrutado_l" name="fechaDisfrutado_l" data-theme="f" readonly>
+            <legend for="tiempodisfrutado_l">Tiempo disfrutado</legend>
+            <input type="text" id="tiempodisfrutado_l" name="tiempodisfrutado_l" data-theme="f" readonly>  
+         </fieldset>      
+            <legend for="comentario_d_l">Comentario</legend>
+            <textarea  id="comentario_d_l" name="comentario_d_l" data-theme="f" readonly></textarea>
+         <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#disfrutadas" data-role="button" data-theme="b">Volver</a></div>
+         		<div class="ui-block-b"><a href="#editadisfrutada" data-role="button">Editar</a>  </div> 
+		 </fieldset>
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>             
+			</ul>
+        </div>
+     </div>
+</div>
+
+<!-- Edita Disfrutada -->
+<div data-role="page" data-theme="d"  id="editadisfrutada">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Disfrutada</h1>
+	</div>
+    
+	<div data-role="content" data-theme="d">	
+    <div id="texto"></div>
+        <form method="post" data-ajax="false" action="#disfrutadas" onSubmit="return actualizarDisfrutada();">	
+        <fieldset data-role="fieldcontain">
+        	<input type="hidden" id="clave">
+            <input type="hidden" id="tiempoentrada">
+        	<legend for="fechaDisfrutado_e">Fecha</legend>
+            <input type="text" id="fechaDisfrutado_e" name="fechaDisfrutado_e" data-theme="f">
+            <legend for="tiempodisfrutado_e">Tiempo disfrutado</legend>
+            <input type="text" id="tiempodisfrutado_e" name="tiempodisfrutado_e" data-theme="f">  
+         </fieldset>      
+            <legend for="comentario_d_e">Comentario</legend>
+            <textarea  id="comentario_d_e" name="comentario_d_e" data-theme="f"></textarea>
+         
+         <fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#disfrutadas" data-role="button">Cancelar</a></div>
+				<div class="ui-block-b"><input type="submit" value="Guardar" data-theme="b"/>  </div>	   
+		</fieldset>
+        <br>
+        <a href="#dialogoEliminar" data-theme="e" data-rel="dialog"  data-role="button">Eliminar</a>         
+        </form>  
+	</div>
+    
+ 	 <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>             
+			</ul>
+        </div>
+     </div>
+</div>
+
+
+
+
+
+<!-- Cuadro de diálogo de eliminar -->
+<div data-role="page" data-theme="d"  id="dialogoEliminar">
+  <div data-role="header" data-theme="b"><h1>Eliminar</h1></div>
+     <div data-role="content">
+		<form method="post" data-ajax="false">	
+        	<input type="hidden" id="clave">
+		
+     <B>¿Seguro de la eliminación?</B><BR>
+  Indique si quiere eliminar también del cómputo general y actualizar las horas, o si sólo desea eliminar la entrada del listado.<BR>
+      <a href="#" data-role="button" data-rel="back" onclick="javascript:eliminaActualiza();">Eliminar y actualizar horas</a>
+      <a href="#" data-role="button" onclick="javascript:eliminaEntrada();">Eliminar solo la entrada</a>
+      <a href="#" data-role="button" data-rel="back" data-theme="b">Cancelar</a>
+      </form>
+     </div>
+</div>
+
+<!-- Página de ayuda -->
+<div data-role="page" data-theme="d"  id="ayuda">
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1>Ayuda</h1>
+        <a href="#disfrutadas" data-theme="c" data-rel="back" data-icon="back" data-iconpos="notext">Cerrar</a>
+	</div>
+     <div data-role="content">
+     	<h1>Horas Extras</h1>
+        Esta aplicación está destinada al control de los tiempos u horas extras que desarrollamos en nuestro empleo.<BR>
+        El usuario potencial es el trabajador de centros comerciales, o locales de venta al público en general, dado el particular horario que tienen que desarrollar, donde pueden encontrarse en situaciones de trabajar determinadas horas fuera de su horario o turno asignado, y con algunas características especiales, como tener que trabajar en días festivos, u horas extraordinarias previas a festivos especiales (día de Reyes, por ejemplo).<BR>
+        <BR>
+        No obstante, configurando la aplicación de determinadas formas, se puede extender el uso a usuarios de distintos entornos laborales.
+        <BR><BR>
+     	Para el correcto uso de esta aplicación es necesario que esté bien configurada.<BR><BR>
+ 		<h3>Elementos de navegación:</h3>
+        <img src="imagenes/icoConfiguracion.gif" width="36" height="32"> Acceso a la configuración<BR>
+        <img src="imagenes/icoAyuda.gif" width="36" height="32"> Acceso a la ayuda<BR>
+        <img src="imagenes/icoHoras.gif" width="102" height="34"> Visualización de las horas disponibles<BR>
+        <img src="imagenes/icoTrabajadas.gif" width="102" height="34"> Lista de horas extras trabajadas<BR>
+        <img src="imagenes/icoTrabajadas.gif" width="102" height="34"> Lista de horas disfrutadas<BR>
+        <img src="imagenes/icoNueva.gif" width="87" height="35">Creación de nueva entrada, de hora extra o disfrutada<BR>
+        <BR>
+        <h3>Configuración:</h3>
+        Insertaremos en cada campo la relación correspondiente al tiempo que nos conceden por cada hora extra trabajada. Usaremos el concepto "1 hora equivale a...".<BR>
+        Usaremos los 3 campos predefinidos para 3 posibles situaciones.<BR><BR>
+        <B>1. Jornada laboral:</B><BR>
+        Tiempo concedido por el equivalente a 1 hora de trabajo en un día "normal", dentro del horario habitual, aunque fuera del horario asignado a mi turno.
+        <BR>
+        <B>2. Horario nocturno:</B><BR>
+        Tiempo concedido por el equivalente a 1 hora después de la hora de cierre.
+        <BR>
+        <B>3. Jornada festiva:</B><BR>
+        Tiempo concedido por el equivalente a 1 hora, cuando se trabaja a partir de las 24:00, "entrando" en un día festivo.
+        <BR><BR>
+        <h3>Horas</h3>
+        En esta ventana visualizamos el tiempo que hemos acumulado por el trabajo realizado en periodos de "horas extras".<BR>
+        Será por tanto, el tiempo que podremos solicitar como descanso para determinadas jornadas.<BR>
+        El valor se actualizará automáticamente según las entradas de "trabajadas" o "disfrutadas" que incluyamos en el sistema.
+        <BR><BR>
+        <h3>Horas</h3>
+        En esta ventana visualizamos el tiempo que hemos acumulado por el trabajo realizado en periodos de "horas extras".<BR>
+        Será por tanto, el tiempo que podremos solicitar como descanso para determinadas jornadas.<BR>
+        El valor se actualizará automáticamente según las entradas de "trabajadas" o "disfrutadas" que incluyamos en el sistema.
+        <BR>
+        Desde aquípodremos acceder también a la conficugración y a esta propia ayuda.
+        <BR><BR>
+        <h3>Trabajadas</h3>
+        En este apartado visualizamos el listado de las entradas de horas extras que hemos trabajado.<BR>
+        Cada entrada estará representada por una fila, en la cual visualizaremos los datos correspondientes a la fecha de la jornada trabajada, horario de inicio y fin de esas horas extras, y el tiempo que acumula esta entrada al total de horas extras.
+        <BR>
+        Pulsando en una fila accedermos a la información que se ingresó en su momento, con la posibilidad de poder editar o eliminarla.
+        <BR><BR>
+        <B>Crear una entrada "Trabajada"</B><BR>
+        Pulsaremos en el botón "Nueva".<BR>
+        Nos mostrará el formulario de creación. Tan solo debemos rellenar los campos que aparecen y guardar dicha entrada.<BR>
+        En el momento de guardar la entrada, el sistema calculará el tiempo que nos deben conceder por el exceso de jornada, en base a los criterios de la configuración y de los valores ingresados para esta entrada.
+        <BR><BR>
+        <B>Información de los campos:</B><BR>
+        <B>- Fecha:</B> Seleccionamos la fecha de la jornada trabajada.<BR>
+        <B>- Hora Inicio:</B> Hora en la que se inicia el trabajo, fuera de nuestro horario "normal".<BR>
+        <B>- Hora Fin:</B> Hora en la que terminamos de trabajar este periodo extra.<BR>
+        <B>- ¿Termina en festivo?:</B> Si/No. Indicamos si terminamos este trabajo "extra" en una jornada la cual es festivo. Un ejemplo sería terminar una jornada la noche de Reyes.<BR>
+        <B>- Comentario:</B> Opcional. Escribiremos un texto que nos pueda ser útil para anotar algo.<BR>
+        <BR><BR>
+        Una vez creada una entrada se calcularán los tiempos y se sumarán al que ya tuviéramos. Tenemos la posibilidad de editar cualquier entrada ya creada, y que se recalculen los tiempos.
+        <BR><BR>
+        <h3>Disfrutadas</h3>
+        En este apartado visualizamos el listado de las entradas de horas que hemos disfrutado como "libres". Es decir, tiempo que nos han dado de permiso, a cambio de tiempo de horas extras trabajados en otras jornadas.<BR>
+        Cada entrada estará representada por una fila, en la cual visualizaremos los datos correspondientes a la fecha de la jornada disfrutada y el tiempo que resta esta entrada al total de horas extras.
+        <BR>
+        Pulsando en una fila accedermos a la información que se ingresó en su momento, con la posibilidad de poder editar o eliminarla.
+        <BR><BR>
+        <B>Crear una entrada "Disfrutada"</B><BR>
+        Pulsaremos en el botón "Nueva".<BR>
+        Nos mostrará el formulario de creación. Tan solo debemos rellenar los campos que aparecen y guardar dicha entrada.<BR>
+        En el momento de guardar la entrada, el sistema calculará el tiempo que hemos disfrutado de "tiempo libre" y lo restará al tiempo acumulado en el total.
+        <BR><BR>
+        <B>Información de los campos:</B><BR>
+        <B>- Fecha:</B> Seleccionamos la fecha de la jornada disfrutada.<BR>
+        <B>- Tiempo disfrutado:</B> Tiempo libre que nos han concedido y hemos disfrutado.<BR>
+        <B>- Comentario:</B> Opcional. Escribiremos un texto que nos pueda ser útil para anotar algo.<BR>
+        <BR><BR>
+        Una vez creada una entrada se calcularán los tiempos y se restarán al que ya tuviéramos. Tenemos la posibilidad de editar cualquier entrada ya creada, y que se recalculen los tiempos.
+        <BR><BR>
+        
+         
+         
+        
+     </div>
+     <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar"  data-theme="c">
+        	<ul>
+            	<li><a href="#inicio" data-transition="pop">Horas</a></li>
+            	<li><a href="#trabajadas" data-transition="pop">Trabajadas</a></li>
+            	<li><a href="#disfrutadas" data-transition="pop">Disfrutadas</a></li>             
+			</ul>
+        </div>
+     </div>     
+</div>
+
+
+<!-- Dialogo de Reinicio -->
+<div data-role="page" id="reinicio">
+  <div data-role="header" ><h1>Reiniciar</h1></div>
+     <div data-role="content">
+     	<h3>¿Está seguro de reiniciar todo el sistema?</h3>
+ 		Se eliminarán todos los datos almacenados.<BR>
+        <a href="#" data-role="button" onclick="javascript:reiniciar();">Sí, eliminar</a> 
+      	<a href="#" data-role="button" data-rel="back">No, cancelar</a>
+     </div>
+</div>
+
+
+</body>
+</html>
